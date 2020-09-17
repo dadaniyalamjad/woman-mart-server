@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const db = require('./src/db/mongoose');
+const categoryRoutes = require('./src/routes/category')
 
 
 const port = 8080;
@@ -24,6 +25,8 @@ app.use(
 
 app.use(bodyParser.json());
 app.use(express.json());
+
+app.use(categoryRoutes);
 
 
 app.listen(port, () => {
