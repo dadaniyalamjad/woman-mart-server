@@ -16,7 +16,7 @@ module.exports = {
     getCategory: async (req, res) => {
         const category = await Category.find({
             isDelete: false
-        })
+        }).populate("Brand", "name");
         try {
             if (category.length > 0) {
                 res.status(200).send(category)
@@ -40,9 +40,9 @@ module.exports = {
             const updates = Object.keys(req.body)
             const allowUpdates = ["name"]
             const isValidOperator = updates.every((update) => allowUpdates.includes(update))
-            if(!isValidOperator) {
+            if (!isValidOperator) {
                 return res.status(400).send({
-                    error:"Invalid Updates"
+                    error: "Invalid Updates"
                 })
             }
 
@@ -57,10 +57,10 @@ module.exports = {
         }
     },
 
-    categoryDelete: async (req,res) => {
+    categoryDelete: async (req, res) => {
         let id = req.params.id
-        let category = await Category.findOne({id:id});
-        category.isDelete =  !category.isDelete
+        let category = await Category.findOne({ id: id });
+        category.isDelete = !category.isDelete
 
         try {
             await category.save()

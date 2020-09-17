@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const db = require('./src/db/mongoose');
 const categoryRoutes = require('./src/routes/category')
+const brandRoutes = require('./src/routes/brand')
 
 
 const port = 8080;
@@ -27,7 +28,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.use(categoryRoutes);
-
+app.use(brandRoutes);
 
 app.listen(port, () => {
     console.log('app listening on port ' + port);
