@@ -7,7 +7,6 @@ const mandrill = require("node-mandrill")(Config.Email.ApiKey);
 module.exports = {
     email_sender: async (message, user, fileName) => {
         return new Promise(async (resolve, reject) => {
-            console.log("email", user[0].email)
             await fs.exists(__dirname + "/template/" + fileName, async exists => {
                 if (exists) {
                     await ejs.renderFile(
@@ -30,7 +29,6 @@ module.exports = {
                                 subject: "Testing",
                                 html: html
                             };
-                            // console.log("message", _message)
                             mandrill(
                                 "/messages/send",
                                 {
@@ -38,15 +36,12 @@ module.exports = {
                                 },
                                 (error, response) => {
                                     if (error) {
-                                        console.log(`Email error`, error);
                                         reject(
                                             new Error.InternalServerError(
                                                 `Mandrill send email function error : ${error}`
                                             )
                                         );
                                     }
-                                    console.log(`email response`, response);
-
                                     resolve(
                                         `Email sent successfully Response : ${JSON.stringify(
                                             response
