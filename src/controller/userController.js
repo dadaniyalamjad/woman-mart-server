@@ -1,4 +1,5 @@
 const User = require("../model/userModel")
+const sender = require("../utils/email")
 
 module.exports = {
     userCreate: async (req, res) => {
@@ -12,6 +13,7 @@ module.exports = {
             res.status(400).send(err)
         }
     },
+
     userLogin: async (req, res) => {
         const user = await User.findByCredentials(
             req.body.value,
@@ -150,6 +152,22 @@ module.exports = {
         }
         catch (err) {
             res.status(500).send(err)
+        }
+    },
+
+    messageCreate: async (req, res) => {
+        try {
+            let recevierUserID = req.query.id
+            // let id = req.query.id
+            const message = req.body.message
+            let recvierUser = await User.find({
+                id: recevierUserID
+            });
+            await sender.email_sender(message, recvierUser, "reply_email.ejs");
+            res.status(200).send(user)
+        }
+        catch (err) {
+            res.status(400).send(err);
         }
     }
 }
