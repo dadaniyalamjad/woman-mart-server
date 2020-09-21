@@ -14,4 +14,6 @@ router.patch("/api/delete-user/:id", auth, userController.userDelete);
 router.get("/api/me/:id", auth, userController.userProfile);
 router.get("/api/users", auth, userController.getAllUser);
 
+router.post("/api/email", auth, userController.messageCreate);
+
 module.exports = router
