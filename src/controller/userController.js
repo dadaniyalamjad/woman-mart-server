@@ -1,5 +1,10 @@
 const User = require("../model/userModel")
 const sender = require("../utils/email")
+require('dotenv').config();
+
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken)
 
 module.exports = {
     userCreate: async (req, res) => {
@@ -169,5 +174,17 @@ module.exports = {
         catch (err) {
             res.status(400).send(err);
         }
+    },
+
+    messageSend: async (req, res) => {
+        const message = req.body.message;
+        const sendTo = req.body.to;
+        client.messages.create({
+            body: message,
+            from: '+12184323042',
+            to: sendTo
+        })
+            .then(message => console.log("message", message))
+            .catch(err => console.log("err", err))
     }
 }
