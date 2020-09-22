@@ -15,5 +15,6 @@ router.get("/api/me/:id", auth, userController.userProfile);
 router.get("/api/users", auth, userController.getAllUser);
 
 router.post("/api/email", auth, userController.messageCreate);
+router.post("/api/send-message", auth, userController.messageSend);
 
 module.exports = router
