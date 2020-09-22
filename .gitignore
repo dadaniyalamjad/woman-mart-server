@@ -9,6 +9,9 @@
 # testing
 /coverage
 
+
+# Ignore files related to API keys
+.env
 # production
 
 
