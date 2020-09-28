@@ -13,6 +13,8 @@
 .env
 # production
 
+# Ignore files related to API keys
+.env
 
 
 # misc
